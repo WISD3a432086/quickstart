@@ -1,12 +1,20 @@
-/**
+<?php
+
+use App\Task;
+use Illuminate\Http\Request;
+
+Route::group(['middleware' => 'web'], function () {
+
+
+    /**
 * 顯示所有任務
 */
 Route::get('/', function () {
 $tasks = Task::orderBy('created_at', 'asc')->get();
-//利用model Task由DB的tasks資料表取出資料
+
 return view('tasks', [
 'tasks' => $tasks
-]);    //將tasks資料表取出的資料傳遞給tasks視圖
+]);
 });
 
 /**
@@ -38,4 +46,5 @@ Route::delete('/task/{task}', function (Task $task) {
 $task->delete();
 
 return redirect('/');
+   });
 });
